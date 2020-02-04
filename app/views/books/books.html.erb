@@ -19,19 +19,18 @@
 	      		</td>
 	      		<td><%= link_to "Edit", "/books/#{book.id}/edit" %></td>
 	      		<td><%= link_to "Destroy", "/books/#{book.id}", method: :delete, "data-confirm" => "本当に削除しますか？"%></td>
-	      		<% end %>
 	      	</tr>
+	      	<% end %>
 	    </tbody>
 	</table>
 
 <h1>New book</h1>
 
-<!-- エラー部分　-->
-
 
 <!-- form_for部分 -->
 <%= form_for(@book, url: '/books') do |f| %>
-
+<!-- エラー部分 -->
+<%= render 'layouts/error_messages', model: f.object %>
     <h4>Title</h4>
     <%= f.text_field :title %>
     <h4>Body</h4>
