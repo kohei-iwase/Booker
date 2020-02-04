@@ -10,11 +10,6 @@ class BooksController < ApplicationController
 		@book = Book.new
 		#一覧機能
 		@books = Book.all
-	def books
-		#投稿機能
-		@book = Book.new
-		#一覧機能
-		@books = Book.all
 	end
 	#新規投稿機能の定義
 	def create
@@ -22,10 +17,10 @@ class BooksController < ApplicationController
 		@book = Book.new(book_params)
 		#bookをDBへ保存が成功したら
 		if @book.save
-			redirect_to book_path(book.id), notice: "successfully"
+			redirect_to book_path(@book.id), notice: "successfully"
 		else
 			@books = Book.all
-			render :books
+			render :index
 		end
 		#リダイレクト先を詳細画面へ
 	end
@@ -41,13 +36,12 @@ class BooksController < ApplicationController
 	def update
 		@book = Book.find(params[:id])
 		if @book.update(book_params)
-			redirect_to book_path(book.id), notice: "successfully"
+			redirect_to book_path(@book.id), notice: "successfully"
 		else
-			@book = Book.find(params[:id])
 			render :edit
 		end
 	end
-	#削除機能
+
 	def destroy
 		book = Book.find(params[:id])
 		book.destroy
