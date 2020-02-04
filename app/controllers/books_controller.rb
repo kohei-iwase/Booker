@@ -10,15 +10,15 @@ class BooksController < ApplicationController
 	end
 	#新規投稿機能の定義
 	def create
-		#　ストロングパラメーターのため＠なし
-		@book = Book.new(book_params)
+		#ストロングパラメーターのため＠なし
+		book = Book.new(book_params)
 		#bookをDBへ保存が成功したら
-		if @book.save
-		#リダイレクト先をとりあえずbooksへ
-		redirect_to '/books'
+		if book.save
+		redirect_to book_path(book.id), notice: "successfully"
 		else
-		render :books
+			render 'top'
 		end
+		#リダイレクト先を詳細画面へ
 	end
 	#詳細ページの定義
 	def show
@@ -31,8 +31,11 @@ class BooksController < ApplicationController
 	#アップデート機能の定義
 	def update
 		book = Book.find(params[:id])
-		book.update(book_params)
-		redirect_to book_path(book.id)
+		if book.update(book_params)
+		redirect_to book_path(book.id), notice: "successfully"
+		else
+			render 'top'
+		end
 	end
 	#削除機能
 	def destroy

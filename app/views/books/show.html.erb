@@ -1,3 +1,10 @@
+   <div class="container">
+      <% flash.each do |msg_class, msg| %>
+        <div class="alert alert-<%= msg_class %>"><%= msg %></div>
+      <% end %>
+      <%= yield %>
+    </div>
+</p>
 <strong>Title:</strong>
 <%= @book.title %>
 <p>
